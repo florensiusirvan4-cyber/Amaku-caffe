@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMAKU Bakehouse & Cafe - Pontianak</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter & Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            red: '#DC2626',      /* Primary Accent Red */
+                            redDark: '#991B1B',  /* Dark Red */
+                            blue: '#1E3A8A',     /* Navy Blue */
+                            blueLight: '#3B82F6',/* Bright Blue */
+                            black: '#111827',    /* Solid Black */
+                            white: '#FFFFFF',    /* Clean White */
+                            cream: '#FFFBEB',    /* Warm Warm Cream Accent */
+                            grayDark: '#1F2937'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Outfit', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FFFFFF;
+            color: #111827;
+        }
+        h1, h2, h3, h4, .font-heading {
+            font-family: 'Outfit', sans-serif;
+        }
+        .bg-pattern {
+            background-image: radial-gradient(#1E3A8A 0.5px, transparent 0.5px), radial-gradient(#DC2626 0.5px, #FFFFFF 0.5px);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            opacity: 0.04;
+        }
+    </style>
+</head>
+<body class="bg-white text-brand-black flex flex-col min-h-screen relative">
+
+    <!-- Header / Navigation -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-brand-red flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-brand-red/30">
+                        A
+                    </div>
+                    <div>
+                        <span class="text-2xl font-extrabold tracking-tight font-heading text-brand-black block leading-none">AMAKU</span>
+                        <span class="text-xs tracking-widest font-semibold text-brand-blue uppercase">Bakehouse & Cafe</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex items-center gap-8 font-medium text-sm text-gray-700">
+                    <a href="#home" class="hover:text-brand-red transition-colors py-1">Beranda</a>
+                    <a href="#about" class="hover:text-brand-red transition-colors py-1">Suasana & Keunggulan</a>
+                    <a href="#menu" class="hover:text-brand-red transition-colors py-1">Daftar Menu</a>
+                    <a href="#location" class="hover:text-brand-red transition-colors py-1">Lokasi & Jam Buka</a>
+                </nav>
+
+                <!-- Actions -->
+                <div class="flex items-center gap-3">
+                    <!-- Cart Button Trigger -->
+                    <button id="cartBtn" onclick="toggleCartModal()" class="relative p-2.5 rounded-full bg-gray-100 hover:bg-brand-blue hover:text-white transition-all text-gray-800">
+                        <i class="fa-solid fa-bag-shopping text-lg"></i>
+                        <span id="cartBadge" class="hidden absolute -top-1 -right-1 bg-brand-red text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white">0</span>
+                    </button>
+
+                    <a href="#menu" class="hidden sm:inline-flex items-center gap-2 bg-brand-red hover:bg-brand-redDark text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition-all shadow-md shadow-brand-red/20 hover:scale-105">
+                        <i class="fa-solid fa-utensils"></i>
+                        <span>Pesan Sekarang</span>
+                    </a>
+
+                    <!-- Mobile Menu Button -->
+                    <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="md:hidden p-2 text-gray-700 hover:text-brand-red">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white border-b border-gray-200 px-4 pt-2 pb-6 space-y-3">
+            <a href="#home" onclick="toggleMobileMenu()" class="block py-2 text-gray-700 hover:text-brand-red font-medium">Beranda</a>
+            <a href="#about" onclick="toggleMobileMenu()" class="block py-2 text-gray-700 hover:text-brand-red font-medium">Suasana & Keunggulan</a>
+            <a href="#menu" onclick="toggleMobileMenu()" class="block py-2 text-gray-700 hover:text-brand-red font-medium">Daftar Menu</a>
+            <a href="#location" onclick="toggleMobileMenu()" class="block py-2 text-gray-700 hover:text-brand-red font-medium">Lokasi & Jam Buka</a>
+            <a href="#menu" onclick="toggleMobileMenu()" class="inline-block w-full text-center bg-brand-red text-white py-2.5 rounded-xl font-semibold text-sm">Pesan Sekarang</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative overflow-hidden bg-gradient-to-b from-gray-50 via-white to-white py-12 lg:py-20">
+        <div class="absolute inset-0 bg-pattern"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Content -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-50 border border-red-200 text-brand-red text-xs font-bold tracking-wide uppercase">
+                        <span class="w-2 h-2 rounded-full bg-brand-red animate-ping"></span>
+                        Buka Hari Ini • Sampai 21:30 WIB
+                    </div>
+                    
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-brand-black tracking-tight leading-tight">
+                        Kehangatan Kopi & <br class="hidden sm:inline"/>
+                        <span class="text-brand-red">Kelezatan Bakehouse</span> <br class="hidden sm:inline"/>
+                        Terbaik di Pontianak
+                    </h1>
+                    
+                    <p class="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                        Nikmati racikan kopi spesial, olahan roti freshly baked, dan hidangan makanan lezat di suasana kafe yang nyaman dengan sentuhan estetis hangat.
+                    </p>
+
+                    <!-- Key Highlights Badges -->
+                    <div class="pt-2 flex flex-wrap justify-center lg:justify-start gap-3 text-xs sm:text-sm font-semibold text-gray-700">
+                        <div class="flex items-center gap-2 bg-white px-3.5 py-2 rounded-xl shadow-sm border border-gray-100">
+                            <i class="fa-solid fa-bread-slice text-brand-red"></i>
+                            <span>Garlic Cheese Bread Terfavorit</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-white px-3.5 py-2 rounded-xl shadow-sm border border-gray-100">
+                            <i class="fa-solid fa-leaf text-emerald-600"></i>
+                            <span>Strawberry Matcha Menyegarkan</span>
+                        </div>
+                    </div>
+
+                    <!-- CTA Buttons -->
+                    <div class="pt-4 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#menu" class="inline-flex justify-center items-center gap-2 bg-brand-red hover:bg-brand-redDark text-white font-bold px-8 py-4 rounded-xl shadow-lg shadow-brand-red/30 transition-all hover:-translate-y-0.5">
+                            <i class="fa-solid fa-utensils"></i>
+                            <span>Jelajahi Menu</span>
+                        </a>
+                        <a href="#location" class="inline-flex justify-center items-center gap-2 bg-brand-blue hover:bg-blue-900 text-white font-bold px-8 py-4 rounded-xl shadow-lg shadow-brand-blue/20 transition-all hover:-translate-y-0.5">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <span>Petunjuk Lokasi</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Visual Accent / Banner Card -->
+                <div class="lg:col-span-5">
+                    <div class="relative mx-auto max-w-md lg:max-w-none">
+                        <!-- Red/Blue Decorative Glows -->
+                        <div class="absolute -top-6 -left-6 w-72 h-72 bg-brand-red/15 rounded-full filter blur-3xl"></div>
+                        <div class="absolute -bottom-6 -right-6 w-72 h-72 bg-brand-blue/15 rounded-full filter blur-3xl"></div>
+                        
+                        <!-- Main Card Simulation of Cafe Vibe -->
+                        <div class="relative bg-brand-black text-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-gray-800 overflow-hidden">
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-brand-red/20 rounded-bl-full pointer-events-none"></div>
+                            
+                            <div class="flex justify-between items-start mb-6">
+                                <div>
+                                    <span class="text-xs font-semibold uppercase tracking-widest text-brand-red">AMAKU Atmosphere</span>
+                                    <h3 class="text-2xl font-bold font-heading">Minimalis & Hangat</h3>
+                                </div>
+                                <span class="bg-brand-blue text-white text-xs px-3 py-1 rounded-full font-bold">Serdam, Pontianak</span>
+                            </div>
+
+                            <!-- Interior Vibe Mockup Graphic -->
+                            <div class="relative h-52 sm:h-60 rounded-2xl overflow-hidden bg-gray-900 border border-gray-800 p-4 flex flex-col justify-between mb-6 group">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10"></div>
+                                
+                                <!-- Stylized Interior Representation -->
+                                <div class="absolute inset-0 opacity-70 flex flex-col">
+                                    <div class="h-1/2 bg-[#B85042] flex items-end justify-center pb-2">
+                                        <div class="w-16 h-4 bg-amber-100/30 rounded-t-md"></div>
+                                    </div>
+                                    <div class="h-1/2 bg-[#F4EADE] flex items-center justify-around px-8">
+                                        <div class="w-10 h-16 bg-black rounded-t-lg"></div>
+                                        <div class="w-10 h-16 bg-black rounded-t-lg"></div>
+                                    </div>
+                                </div>
+
+                                <div class="relative z-20 flex justify-between items-center text-xs font-semibold text-gray-300">
+                                    <span class="bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-md border border-white/10">
+                                        <i class="fa-solid fa-mug-hot text-amber-400 mr-1"></i> Warm Lighting
+                                    </span>
+                                    <span class="bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-md border border-white/10">
+                                        <i class="fa-solid fa-chair text-blue-400 mr-1"></i> Industrial Seating
+                                    </span>
+                                </div>
+
+                                <div class="relative z-20">
+                                    <p class="text-xs text-gray-300 italic">"Tempat sempurna untuk wfc, nongkrong santai, atau sekadar menikmati kopi dan pastry di Pontianak."</p>
+                                </div>
+                            </div>
+
+                            <!-- Highlights Grid -->
+                            <div class="grid grid-cols-2 gap-3 text-center">
+                                <div class="p-3 bg-gray-900/80 rounded-xl border border-gray-800">
+                                    <p class="text-xs text-gray-400">Rata-rata Waktu Santai</p>
+                                    <p class="text-sm font-bold text-white mt-0.5">45 Min - 4 Jam</p>
+                                </div>
+                                <div class="p-3 bg-gray-900/80 rounded-xl border border-gray-800">
+                                    <p class="text-xs text-gray-400">Rating Pengunjung</p>
+                                    <p class="text-sm font-bold text-amber-400 mt-0.5">
+                                        <i class="fa-solid fa-star text-xs"></i> 4.8 / 5.0
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Highlights Section -->
+    <section class="py-10 bg-brand-black text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-2xl bg-brand-red flex items-center justify-center text-xl text-white shadow-lg shadow-brand-red/40 shrink-0">
+                        <i class="fa-solid fa-thumbs-up"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold font-heading">Paling Banyak Disukai Pengunjung</h3>
+                        <p class="text-xs text-gray-400">Rekomendasi utama bagi Anda yang baru pertama kali berkunjung ke AMAKU</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full md:w-auto">
+                    <div class="bg-gray-900/90 border border-gray-800 p-3.5 rounded-2xl flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-lg">
+                            🥐
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-white">Garlic Cheese Bread</p>
+                            <p class="text-xs text-gray-400">Tekstur lembut & rasa gurih spesial</p>
+                        </div>
+                    </div>
+                    <div class="bg-gray-900/90 border border-gray-800 p-3.5 rounded-2xl flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-lg">
+                            🍵
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-white">Strawberry Matcha</p>
+                            <p class="text-xs text-gray-400">Kombinasi manis & segar unik</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Atmosphere / About Section -->
+    <section id="about" class="py-16 bg-gray-50 border-y border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-xs font-bold uppercase tracking-wider text-brand-red bg-red-100 px-3 py-1 rounded-full">Suasana Cafe</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-black mt-3 font-heading">Pengalaman Bersantai yang Hangat & Minimalis</h2>
+                <p class="text-gray-600 mt-3 text-sm sm:text-base">
+                    Dirancang dengan perpaduan warna dinding terracotta bernuansa hangat, kursi industrial hitam modern, tanaman hijau segar, dan pencahayaan lembut.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 bg-blue-50 text-brand-blue rounded-xl flex items-center justify-center text-xl font-bold mb-4">
+                        <i class="fa-solid fa-mug-hot"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-black mb-2 font-heading">Bakehouse & Kopi Autentik</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Kombinasi sajian kopi terbaik dan aneka ragam pastry serta makanan utama yang dimasak dengan bahan-bahan terpilih.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 bg-red-50 text-brand-red rounded-xl flex items-center justify-center text-xl font-bold mb-4">
+                        <i class="fa-solid fa-couch"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-black mb-2 font-heading">Tempat Nyaman & Aesthetic</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Tata ruang yang simpel namun estetis, cocok untuk meeting santai, pengerjaan tugas, atau sekadar me-time.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 bg-gray-100 text-brand-black rounded-xl flex items-center justify-center text-xl font-bold mb-4">
+                        <i class="fa-solid fa-wifi"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-black mb-2 font-heading">Fasilitas Lengkap</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Dilengkapi colokan listrik, akses Wi-Fi kencang, serta ruangan ber-AC yang membuat betah berlama-lama.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Menu Section -->
+    <section id="menu" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-10">
+                <span class="text-xs font-bold uppercase tracking-wider text-brand-blue bg-blue-50 px-3 py-1 rounded-full">Menu Kami</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-black mt-3 font-heading">Pilihan Menu AMAKU</h2>
+                <p class="text-gray-600 mt-2 text-sm sm:text-base">Pilih kategori kesukaan Anda dan klik untuk menambahkan ke pesanan.</p>
+            </div>
+
+            <!-- Search & Filters Bar -->
+            <div class="flex flex-col md:flex-row gap-4 items-center justify-between mb-8">
+                <!-- Search Bar -->
+                <div class="relative w-full md:w-80">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                    <input type="text" id="searchInput" oninput="filterMenu()" placeholder="Cari kopi, makanan, snack..." 
+                           class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-brand-red text-sm transition-all">
+                </div>
+
+                <!-- Category Tabs -->
+                <div class="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 scrollbar-none">
+                    <button onclick="setCategory('ALL')" class="category-btn active px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all bg-brand-black text-white">Semua</button>
+                    <button onclick="setCategory('HOT COFFEE')" class="category-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all bg-gray-100 text-gray-700 hover:bg-gray-200">Hot Coffee</button>
+                    <button onclick="setCategory('COLD COFFEE')" class="category-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all bg-gray-100 text-gray-700 hover:bg-gray-200">Cold Coffee</button>
+                    <button onclick="setCategory('NON COFFEE')" class="category-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all bg-gray-100 text-gray-700 hover:bg-gray-200">Non Coffee</button>
+                    <button onclick="setCategory('SET DISH')" class="category-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all bg-gray-100 text-gray-700 hover:bg-gray-200">Set Dish</button>
+                    <button onclick="setCategory('SNACK')" class="category-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all bg-gray-100 text-gray-700 hover:bg-gray-200">Snack</button>
+                </div>
+            </div>
+
+            <!-- Menu Grid Container -->
+            <div id="menuContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- JavaScript will populate menu items here -->
+            </div>
+
+            <!-- Empty Search Result State -->
+            <div id="emptyState" class="hidden text-center py-12">
+                <i class="fa-solid fa-mug-saucer text-4xl text-gray-300 mb-3"></i>
+                <p class="text-gray-500 font-medium">Menu yang Anda cari tidak ditemukan.</p>
+                <button onclick="resetFilters()" class="mt-3 text-xs text-brand-red font-bold underline">Tampilkan Semua Menu</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location & Opening Hours Section -->
+    <section id="location" class="py-16 bg-gray-900 text-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                
+                <!-- Left Details -->
+                <div class="lg:col-span-6 space-y-6">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-widest text-brand-red">Kunjungi Kafe Kami</span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold mt-2 font-heading">Lokasi & Jam Operasional</h2>
+                        <p class="text-gray-400 text-sm mt-2">Kami siap menyambut Anda dengan kehangatan sajian terbaik di Pontianak.</p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <!-- Address -->
+                        <div class="flex items-start gap-4 p-4 rounded-2xl bg-gray-800/80 border border-gray-700/60">
+                            <div class="w-10 h-10 rounded-xl bg-brand-red/20 text-brand-red flex items-center justify-center shrink-0 font-bold text-lg">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm text-white">Alamat Lengkap</h4>
+                                <p class="text-xs text-gray-300 mt-1 leading-relaxed">
+                                    Serdam di, Jl. Sungai Raya Dalam Jl. Komp. Permata Agung No.samping, Bangka Belitung Darat, Kec. Pontianak Tenggara, Kota Pontianak, Kalimantan Barat 78124
+                                </p>
+                                <span class="inline-block mt-2 text-[11px] bg-gray-700 px-2 py-0.5 rounded text-gray-300">Plus Code: W9G5+VM Pontianak</span>
+                            </div>
+                        </div>
+
+                        <!-- Hours -->
+                        <div class="flex items-start gap-4 p-4 rounded-2xl bg-gray-800/80 border border-gray-700/60">
+                            <div class="w-10 h-10 rounded-xl bg-brand-blue/30 text-brand-blueLight flex items-center justify-center shrink-0 font-bold text-lg">
+                                <i class="fa-solid fa-clock"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm text-white">Jam Buka</h4>
+                                <p class="text-xs text-gray-300 mt-1">
+                                    Setiap Hari: <span class="text-emerald-400 font-semibold">Buka • Tutup pukul 21.30 WIB</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Duration Tip -->
+                        <div class="flex items-start gap-4 p-4 rounded-2xl bg-gray-800/80 border border-gray-700/60">
+                            <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0 font-bold text-lg">
+                                <i class="fa-solid fa-users"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm text-white">Waktu Berkunjung Pengunjung</h4>
+                                <p class="text-xs text-gray-300 mt-1">
+                                    Pengunjung biasanya menghabiskan waktu <span class="font-semibold text-white">45 menit sampai 4 jam</span> di AMAKU.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-2">
+                        <a href="https://maps.google.com/?q=AMAKU+Bakehouse+Pontianak" target="_blank" class="inline-flex items-center gap-2 bg-brand-red hover:bg-brand-redDark text-white px-6 py-3 rounded-xl font-bold text-sm transition-all shadow-lg shadow-brand-red/30">
+                            <i class="fa-solid fa-map-location-dot"></i>
+                            <span>Buka di Google Maps</span>
+                        </a>
+                        <a href="https://wa.me/6281520440288" target="_blank" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-xl font-bold text-sm transition-all shadow-lg shadow-emerald-600/30 ml-2">
+                            <i class="fa-brands fa-whatsapp text-lg"></i>
+                            <span>Hubungi Kami via WA</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Card Map Graphic Placeholder -->
+                <div class="lg:col-span-6">
+                    <div class="bg-gray-800 rounded-3xl p-6 border border-gray-700 shadow-xl relative overflow-hidden">
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="flex items-center gap-2">
+                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            </div>
+                            <span class="text-xs font-mono text-gray-400">Pontianak Tenggara</span>
+                        </div>
+
+                        <!-- Simulated Map View -->
+                        <div class="w-full h-72 rounded-2xl bg-gray-900 border border-gray-700 relative overflow-hidden flex items-center justify-center">
+                            <!-- Grid lines -->
+                            <div class="absolute inset-0 bg-pattern opacity-10"></div>
+                            <div class="absolute inset-x-0 top-1/2 h-0.5 bg-gray-800"></div>
+                            <div class="absolute inset-y-0 left-1/2 w-0.5 bg-gray-800"></div>
+
+                            <!-- Marker -->
+                            <div class="relative z-10 text-center animate-bounce">
+                                <div class="w-12 h-12 bg-brand-red text-white rounded-full flex items-center justify-center shadow-lg mx-auto text-xl">
+                                    <i class="fa-solid fa-store"></i>
+                                </div>
+                                <span class="mt-2 inline-block bg-black/90 text-white text-xs px-3 py-1 rounded-full font-bold border border-gray-700">
+                                    AMAKU Bakehouse
+                                </span>
+                            </div>
+                        </div>
+
+                        <p class="text-xs text-gray-400 text-center mt-4">
+                            Berada di kawasan Serdam (Sungai Raya Dalam), dekat Komplek Permata Agung.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-black border-t border-gray-800 text-gray-400 py-10 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-brand-red flex items-center justify-center text-white font-bold text-sm">
+                        A
+                    </div>
+                    <div>
+                        <span class="text-lg font-bold text-white font-heading block leading-none">AMAKU Bakehouse & Cafe</span>
+                        <span class="text-xs text-gray-400">WhatsApp: +62 815-2044-0288</span>
+                    </div>
+                </div>
+
+                <p class="text-xs text-center">
+                    &copy; 2026 AMAKU Bakehouse & Cafe Pontianak. All rights reserved.
+                </p>
+
+                <div class="flex items-center gap-4 text-gray-400 text-sm">
+                    <a href="#" class="hover:text-brand-red"><i class="fa-brands fa-instagram text-lg"></i></a>
+                    <a href="https://wa.me/6281520440288" target="_blank" class="hover:text-emerald-400"><i class="fa-brands fa-whatsapp text-lg"></i></a>
+                    <a href="#" class="hover:text-brand-red"><i class="fa-solid fa-envelope text-lg"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/6281520440288" target="_blank" class="fixed bottom-6 left-6 bg-emerald-500 hover:bg-emerald-600 text-white p-3.5 rounded-full shadow-2xl z-40 flex items-center justify-center group transition-all hover:scale-110">
+        <i class="fa-brands fa-whatsapp text-2xl"></i>
+        <span class="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-300 ease-in-out whitespace-nowrap text-xs font-bold pl-0 group-hover:pl-2">
+            Chat WA Kami
+        </span>
+    </a>
+
+    <!-- Cart Modal Side Panel -->
+    <div id="cartModal" class="fixed inset-0 z-50 hidden transition-opacity">
+        <!-- Backdrop -->
+        <div onclick="toggleCartModal()" class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+
+        <!-- Panel -->
+        <div class="absolute right-0 top-0 bottom-0 w-full max-w-md bg-white shadow-2xl flex flex-col z-10">
+            <!-- Modal Header -->
+            <div class="p-4 border-b border-gray-200 flex justify-between items-center bg-gray-50">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-bag-shopping text-brand-red"></i>
+                    <h3 class="font-bold text-brand-black font-heading">Pesanan Anda</h3>
+                </div>
+                <button onclick="toggleCartModal()" class="p-2 text-gray-400 hover:text-black">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body (Cart Items) -->
+            <div id="cartItemsContainer" class="flex-1 overflow-y-auto p-4 space-y-3">
+                <!-- Cart items inserted via JS -->
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="p-4 border-t border-gray-200 bg-gray-50 space-y-3">
+                <div class="flex justify-between items-center text-sm">
+                    <span class="text-gray-600 font-medium">Total Pembayaran:</span>
+                    <span id="cartTotal" class="text-xl font-extrabold text-brand-red">Rp 0</span>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="block text-xs font-semibold text-gray-700">Nama Pemesan / Meja (Opsional):</label>
+                    <input type="text" id="customerName" placeholder="Contoh: Budi (Meja 04)" class="w-full text-xs p-2.5 rounded-lg border border-gray-300 focus:outline-none focus:border-brand-red">
+                </div>
+
+                <div class="space-y-2">
+                    <label class="block text-xs font-semibold text-gray-700">Tipe Pesanan:</label>
+                    <select id="orderType" class="w-full text-xs p-2.5 rounded-lg border border-gray-300 focus:outline-none focus:border-brand-red">
+                        <option value="Dine-in (Makan di Tempat)">Dine-in (Makan di Tempat)</option>
+                        <option value="Takeaway (Bawa Pulang)">Takeaway (Bawa Pulang)</option>
+                        <option value="Delivery (Pengiriman)">Delivery (Pengiriman)</option>
+                    </select>
+                </div>
+
+                <button onclick="sendOrderWhatsApp()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 transition-all shadow-md">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>Kirim Pesanan via WhatsApp</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-brand-black text-white px-4 py-3 rounded-xl shadow-xl border border-gray-800 z-50 flex items-center gap-3 transition-all transform translate-y-20 opacity-0 pointer-events-none">
+        <i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+        <span id="toastMsg" class="text-xs font-semibold">Item berhasil ditambahkan</span>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Data Structure for Menu
+        const menuData = [
+            // HOT COFFEE SERIES
+            { id: 1, name: "Espresso", price: 17600, category: "HOT COFFEE", isBest: false, desc: "Ekstrak kopi murni kaya rasa & aroma mantap." },
+            { id: 2, name: "Americano", price: 16500, category: "HOT COFFEE", isBest: false, desc: "Espresso hangat diseduh dengan air panas." },
+            { id: 3, name: "Cafe Latte", price: 22000, category: "HOT COFFEE", isBest: false, desc: "Perpaduan espresso espresso dan susu hangat creamy." },
+            { id: 4, name: "Cappucino Classic", price: 22000, category: "HOT COFFEE", isBest: false, desc: "Espresso dengan foam susu tebal nan lembut." },
+            { id: 5, name: "Magic Latte", price: 27500, category: "HOT COFFEE", isBest: true, desc: "Riset khusus espresso ganda dengan rasio susu seimbang." },
+            { id: 6, name: "V60", price: 29700, category: "HOT COFFEE", isBest: false, desc: "Kopi seduh manual denga karakter rasa bersih & kompleks." },
+
+            // COLD COFFEE SERIES
+            { id: 7, name: "Iced Americano", price: 16500, category: "COLD COFFEE", isBest: false, desc: "Kopi hitam dingin yang segar dan membangkitkan semangat." },
+            { id: 8, name: "Orange Americano", price: 27500, category: "COLD COFFEE", isBest: false, desc: "Perpaduan kopi hitam dingin dengan sentuhan rasa jeruk segar." },
+            { id: 9, name: "Kopi Susu AMAKU", price: 25300, category: "COLD COFFEE", isBest: true, desc: "Resep rahasia kopi susu khas AMAKU Bakehouse." },
+            { id: 10, name: "Kopi Susu Gula Aren", price: 27500, category: "COLD COFFEE", isBest: false, desc: "Kopi susu nikmat berpadu manisnya gula aren manis alami." },
+            { id: 11, name: "Butterscotch Latte", price: 27500, category: "COLD COFFEE", isBest: false, desc: "Sensasi kopi creamy dengan sirup butterscotch gurih manis." },
+            { id: 12, name: "Salted Caramel", price: 27500, category: "COLD COFFEE", isBest: false, desc: "Perpaduan karamel asin manis yang berpadu dengan kopi lembut." },
+
+            // NON COFFEE SERIES
+            { id: 13, name: "Cendol Kecebong", price: 26400, category: "NON COFFEE", isBest: false, desc: "Sajian minuman unik manis dan segar khas penutup hari." },
+            { id: 14, name: "Choco Latte", price: 27500, category: "NON COFFEE", isBest: false, desc: "Minuman cokelat kaya rasa dipadu susu gurih segar." },
+            { id: 15, name: "Matcha Latte", price: 27500, category: "NON COFFEE", isBest: false, desc: "Matcha kualitas pilihan diseduh dengan susu segar." },
+            { id: 16, name: "Strawberry Matcha Latte", price: 27500, category: "NON COFFEE", isBest: true, desc: "Favorite! Segarnya strawberry berpadu nikmatnya matcha." },
+            { id: 17, name: "Lemon Tea", price: 17600, category: "NON COFFEE", isBest: false, desc: "Teh es segar dengan perasan lemon alami." },
+            { id: 18, name: "Lychee Tea", price: 17600, category: "NON COFFEE", isBest: false, desc: "Teh wangi dengan aroma manis buah lada/lychee segar." },
+            { id: 19, name: "Java Tea", price: 8800, category: "NON COFFEE", isBest: false, desc: "Teh tradisional Indonesia yang manis dan menyegarkan." },
+            { id: 20, name: "Kasturi Ice", price: 10000, category: "NON COFFEE", isBest: false, desc: "Es jeruk kasturi asam manis segar pelepas dahaga." },
+
+            // SET DISH
+            { id: 21, name: "AMAKU Signature Set Dish", price: 31900, category: "SET DISH", isBest: true, desc: "Menu lengkap andalan chef khas AMAKU Bakehouse." },
+            { id: 22, name: "Buttermilk Chicken Rice", price: 33000, category: "SET DISH", isBest: false, desc: "Ayam crispy saus buttermilk gurih nan creamy disajikan nasi hangat." },
+            { id: 23, name: "Salted Egg Chicken Rice", price: 35200, category: "SET DISH", isBest: false, desc: "Ayam goreng renyah dibalur saus telur asin kaya rasa." },
+            { id: 24, name: "Nasi Goreng", price: 30800, category: "SET DISH", isBest: false, desc: "Nasi goreng bumbu spesial dilengkapi telur & kerupuk." },
+            { id: 25, name: "Nasi Telur Siram", price: 27500, category: "SET DISH", isBest: false, desc: "Nasi hangat disiram olahan telur gurih lembut." },
+            { id: 26, name: "Nasi Sup Telur", price: 16500, category: "SET DISH", isBest: false, desc: "Sup telur hangat gurih sangat cocok untuk hidangan cepat." },
+            { id: 27, name: "Nasi Ayam Geprek", price: 22000, category: "SET DISH", isBest: false, desc: "Ayam renyah digeprek dengan sambal pedas menggugah selera." },
+            { id: 28, name: "Mie Nyemek", price: 26400, category: "SET DISH", isBest: false, desc: "Mie kuah kental dengan bumbu kaya rempah khas." },
+            { id: 29, name: "Crispy Chicken Steak Brown Sauce", price: 27500, category: "SET DISH", isBest: false, desc: "Steak ayam renyah disiram saus cokelat gurih manis." },
+            { id: 30, name: "Crispy Chicken Steak Mushroom Sauce", price: 27500, category: "SET DISH", isBest: false, desc: "Steak ayam renyah dilumuri saus jamur creamy gurih." },
+
+            // SNACK & BAKEHOUSE
+            { id: 31, name: "Garlic Cheese Bread", price: 28000, category: "SNACK", isBest: true, desc: "Menu Bestseller! Roti khas bakehouse rasa bawang & keju gurih melimpah." },
+            { id: 32, name: "Ubi Goreng", price: 22000, category: "SNACK", isBest: false, desc: "Ubi manis goreng renyah di luar lembut di dalam." },
+            { id: 33, name: "French Fries", price: 22000, category: "SNACK", isBest: false, desc: "Kentang goreng gurih garing disajikan hangat." },
+            { id: 34, name: "ChicTato", price: 22000, category: "SNACK", isBest: false, desc: "Camilan renyah gabungan olahan ayam dan kentang." },
+            { id: 35, name: "Tahu Bakso Goreng", price: 38500, category: "SNACK", isBest: false, desc: "Tahu isian bakso padat gurih diproses goreng crispy." },
+            { id: 36, name: "Pisang Goreng Srikaya", price: 20000, category: "SNACK", isBest: false, desc: "Pisang goreng renyah disiram selai srikaya manis legitim." }
+        ];
+
+        // State Management
+        let cart = [];
+        let currentCategory = 'ALL';
+
+        // Format Currency Helper
+        function formatRupiah(number) {
+            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(number);
+        }
+
+        // Render Menu Items
+        function renderMenu(items) {
+            const container = document.getElementById('menuContainer');
+            const emptyState = document.getElementById('emptyState');
+
+            if (items.length === 0) {
+                container.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            container.innerHTML = items.map(item => `
+                <div class="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group relative overflow-hidden">
+                    ${item.isBest ? `
+                        <span class="absolute top-3 right-3 bg-brand-red text-white text-[10px] font-extrabold px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm z-10">
+                            ★ Best Seller
+                        </span>
+                    ` : ''}
+                    
+                    <div>
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-[10px] font-bold px-2 py-0.5 bg-gray-100 text-gray-600 rounded">
+                                ${item.category}
+                            </span>
+                        </div>
+                        <h4 class="font-bold text-gray-900 text-base font-heading group-hover:text-brand-red transition-colors">${item.name}</h4>
+                        <p class="text-xs text-gray-500 mt-1 line-clamp-2 leading-relaxed">${item.desc}</p>
+                    </div>
+
+                    <div class="mt-4 pt-3 border-t border-gray-50 flex items-center justify-between">
+                        <span class="font-extrabold text-brand-black text-sm">${formatRupiah(item.price)}</span>
+                        <button onclick="addToCart(${item.id})" class="bg-brand-blue hover:bg-brand-red text-white p-2.5 rounded-xl transition-all flex items-center justify-center text-xs font-semibold gap-1.5 shadow-sm">
+                            <i class="fa-solid fa-plus"></i>
+                            <span>Tambah</span>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Filter Functionality
+        function filterMenu() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = menuData.filter(item => {
+                const matchesCat = currentCategory === 'ALL' || item.category === currentCategory;
+                const matchesSearch = item.name.toLowerCase().includes(query) || item.desc.toLowerCase().includes(query);
+                return matchesCat && matchesSearch;
+            });
+            renderMenu(filtered);
+        }
+
+        function setCategory(cat) {
+            currentCategory = cat;
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                if (btn.innerText.toUpperCase().includes(cat) || (cat === 'ALL' && btn.innerText === 'Semua')) {
+                    btn.classList.add('bg-brand-black', 'text-white');
+                    btn.classList.remove('bg-gray-100', 'text-gray-700');
+                } else {
+                    btn.classList.remove('bg-brand-black', 'text-white');
+                    btn.classList.add('bg-gray-100', 'text-gray-700');
+                }
+            });
+            filterMenu();
+        }
+
+        function resetFilters() {
+            document.getElementById('searchInput').value = '';
+            setCategory('ALL');
+        }
+
+        // Cart Actions
+        function addToCart(id) {
+            const item = menuData.find(m => m.id === id);
+            const existing = cart.find(c => c.id === id);
+
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ ...item, qty: 1 });
+            }
+
+            updateCartUI();
+            showToast(`"${item.name}" ditambahkan ke pesanan`);
+        }
+
+        function updateCartQty(id, delta) {
+            const index = cart.findIndex(c => c.id === id);
+            if (index !== -1) {
+                cart[index].qty += delta;
+                if (cart[index].qty <= 0) {
+                    cart.splice(index, 1);
+                }
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const totalQty = cart.reduce((sum, item) => sum += item.qty, 0);
+            const totalPrice = cart.reduce((sum, item) => sum += (item.price * item.qty), 0);
+
+            // Badge
+            const badge = document.getElementById('cartBadge');
+            if (totalQty > 0) {
+                badge.innerText = totalQty;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+
+            // Cart Items
+            const container = document.getElementById('cartItemsContainer');
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 text-gray-400">
+                        <i class="fa-solid fa-basket-shopping text-3xl mb-2"></i>
+                        <p class="text-xs">Keranjang Anda masih kosong</p>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = cart.map(item => `
+                    <div class="flex items-center justify-between bg-gray-50 p-3 rounded-xl border border-gray-100">
+                        <div class="flex-1 pr-2">
+                            <h5 class="text-xs font-bold text-gray-900">${item.name}</h5>
+                            <span class="text-[11px] text-brand-red font-semibold">${formatRupiah(item.price)}</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-white px-2 py-1 rounded-lg border border-gray-200">
+                            <button onclick="updateCartQty(${item.id}, -1)" class="text-xs text-gray-500 hover:text-black font-bold px-1.5">-</button>
+                            <span class="text-xs font-bold w-4 text-center">${item.qty}</span>
+                            <button onclick="updateCartQty(${item.id}, 1)" class="text-xs text-gray-500 hover:text-black font-bold px-1.5">+</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            document.getElementById('cartTotal').innerText = formatRupiah(totalPrice);
+        }
+
+        function toggleCartModal() {
+            const modal = document.getElementById('cartModal');
+            modal.classList.toggle('hidden');
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+            
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+            }, 2500);
+        }
+
+        function sendOrderWhatsApp() {
+            if (cart.length === 0) {
+                alert("Keranjang pesanan masih kosong!");
+                return;
+            }
+
+            const name = document.getElementById('customerName').value.trim() || 'Pelanggan';
+            const orderType = document.getElementById('orderType').value;
+            let text = `Halo AMAKU Bakehouse & Cafe, saya ingin memesan:\n\n`;
+            text += `Nama / Meja: ${name}\n`;
+            text += `Tipe Pesanan: ${orderType}\n`;
+            text += `----------------------------------------\n`;
+            
+            cart.forEach(item => {
+                text += `• ${item.name} x${item.qty} = ${formatRupiah(item.price * item.qty)}\n`;
+            });
+
+            const total = cart.reduce((sum, item) => sum += (item.price * item.qty), 0);
+            text += `----------------------------------------\n`;
+            text += `Total Pembayaran: ${formatRupiah(total)}\n\n`;
+            text += `Mohon konfirmasi pesanan saya. Terima kasih!`;
+
+            const encoded = encodeURIComponent(text);
+            window.open(`https://wa.me/6281520440288?text=${encoded}`, '_blank');
+        }
+
+        // Initialize Page
+        window.onload = function() {
+            renderMenu(menuData);
+        };
+    </script>
+</body>
+</html>
